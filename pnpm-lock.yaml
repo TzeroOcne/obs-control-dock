@@ -45,6 +45,9 @@ importers:
       vite:
         specifier: ^5.4.0
         version: 5.4.0
+      vite-plugin-singlefile:
+        specifier: ^2.0.2
+        version: 2.0.2(rollup@4.20.0)(vite@5.4.0)
 
 packages:
 
@@ -982,6 +985,13 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  vite-plugin-singlefile@2.0.2:
+    resolution: {integrity: sha512-Z2ou6HcvED5CF0hM+vcFSaFa+klyS8RyyLxW0PbMRLnMbvzTI6ueWyxdYNFhpuXZgz/aj6+E/dHFTdEcw6gb9w==}
+    engines: {node: '>18.0.0'}
+    peerDependencies:
+      rollup: ^4.18.0
+      vite: ^5.3.1
+
   vite@5.4.0:
     resolution: {integrity: sha512-5xokfMX0PIiwCMCMb9ZJcMyh5wbBun0zUzKib+L65vAZ8GY9ePZMXxFrHbr/Kyll2+LSCY7xtERPpxkBDKngwg==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -1912,6 +1922,12 @@ snapshots:
       picocolors: 1.0.1
 
   util-deprecate@1.0.2: {}
+
+  vite-plugin-singlefile@2.0.2(rollup@4.20.0)(vite@5.4.0):
+    dependencies:
+      micromatch: 4.0.7
+      rollup: 4.20.0
+      vite: 5.4.0
 
   vite@5.4.0:
     dependencies:
