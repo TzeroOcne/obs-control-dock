@@ -146,6 +146,7 @@
   </ControlButton>
   <ControlButton
     onclick={clickPause}
+    disabled={!isRecording}
   >
     <Icon size="80%" src={SlControlPause}
       color={isPaused ? 'yellow' : 'inherit'}
@@ -165,6 +166,7 @@
   </ControlButton>
   <ControlButton
     onclick={clickSaveReplay}
+    disabled={!isReplay || isPaused}
   >
     <Icon size="80%" src={FaFloppyDisk}/>
   </ControlButton>
