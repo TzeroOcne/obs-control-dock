@@ -4,7 +4,7 @@ import daisyui from 'daisyui';
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{svelte,js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,svelte}",
   ],
   theme: {
     extend: {},
@@ -12,5 +12,5 @@ export default {
   plugins: [
     daisyui,
   ],
-}
+};
 
