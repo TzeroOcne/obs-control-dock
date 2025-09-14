@@ -2,12 +2,12 @@
   import OBSWebSocket from 'obs-websocket-js';
   import { Icon } from 'svelte-icons-pack';
   import { BsRecordCircle } from 'svelte-icons-pack/bs';
-  import { FaFloppyDisk, FaSolidCameraRetro } from 'svelte-icons-pack/fa';
+  import { FaFloppyDisk, FaSolidCameraRetro, FaSolidWrench } from 'svelte-icons-pack/fa';
   import { RiMediaReplay30Fill } from 'svelte-icons-pack/ri';
   import { SlControlPause } from 'svelte-icons-pack/sl';
   import ControlButton from './components/ControlButton.svelte';
   import { OutputState } from './const/obs';
-  import { SceneSettings } from './const/settings-map';
+  import { SceneRecordDirectory, SceneSettings } from './const/settings-map';
 
   const socket = new OBSWebSocket();
   let isRecording = false;
@@ -27,11 +27,27 @@
         });
     });
 
+  let sceneChangeTimeout: number | undefined;
   socket.on('CurrentProgramSceneChanged', (e) => {
-    socket.call(
-      'SetVideoSettings',
-      SceneSettings[e.sceneName] ?? {},
-    );
+    window.clearTimeout(sceneChangeTimeout);
+
+    sceneChangeTimeout = window.setTimeout(async () => {
+      if (e.sceneName in SceneSettings) {
+        await socket.call(
+          'SetVideoSettings',
+          SceneSettings[e.sceneName] ?? {},
+        );
+      }
+
+      const sceneRecordDirectory = [
+        import.meta.env.VITE_RECORD_DIRECTORY,
+        SceneRecordDirectory[e.sceneName],
+      ].filter(Boolean).join('/');
+
+      await socket.call('SetRecordDirectory', {
+        recordDirectory: sceneRecordDirectory,
+      });
+    }, 400);
   });
 
   socket.on('RecordStateChanged', (e) => {
@@ -134,6 +150,10 @@
       },
     );
   }
+
+  async function clickTest() {
+    console.log({ dir: import.meta.env.VITE_RECORD_DIRECTORY });
+  }
 </script>
 
 <div class="grid grid-cols-3">
@@ -169,6 +189,12 @@
     disabled={!isReplay || isPaused}
   >
     <Icon size="80%" src={FaFloppyDisk}/>
+  </ControlButton>
+  <ControlButton
+    onclick={clickTest}
+    disabled={import.meta.env.PROD}
+  >
+    <Icon size="80%" src={FaSolidWrench}/>
   </ControlButton>
 </div>
 
