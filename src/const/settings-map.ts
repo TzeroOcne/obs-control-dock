@@ -4,6 +4,7 @@ const PresetSceneEnum = {
   GENSHIN: 'Genshin',
   ZENLESS_ZONE_ZERO: 'Zenless Zone Zero',
   HEAVEN_BURNS_RED: 'Heaven Burns Red',
+  BLUE_ARCHIVE: 'Blue Archive',
 } as const;
 type PresetScene = (typeof PresetSceneEnum)[keyof typeof PresetSceneEnum];
 
@@ -26,10 +27,17 @@ export const SceneSettings:Record<PresetScene, OBSRequestTypes['SetVideoSettings
     outputWidth: 1920,
     outputHeight: 1200,
   },
+  [PresetSceneEnum.BLUE_ARCHIVE]: {
+    baseWidth: 2080,
+    baseHeight: 1170,
+    outputWidth: 2080,
+    outputHeight: 1170,
+  },
 };
 
 export const SceneRecordDirectory:Record<PresetScene, string> = {
   [PresetSceneEnum.GENSHIN]: 'Genshin Impact',
   [PresetSceneEnum.ZENLESS_ZONE_ZERO]: 'Zenless Zone Zero',
   [PresetSceneEnum.HEAVEN_BURNS_RED]: 'Heaven Burns Red',
+  [PresetSceneEnum.BLUE_ARCHIVE]: 'Blue Archive',
 };
